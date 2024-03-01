@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        p{
+            padding: 1px 10px 30px 1px;
+            margin-bottom: -2px;
+        }
+        body{
+            display: grid;
+            grid-template-columns: 100px 100px 100px 100px;
+           gap: 3%;
+           
+          
+        }
+    
+    </style>
+</head>
+<body>
+    <p style="background-color: bisque;">First</p>
+    <p style="background-color: rgb(234, 71, 118);">Second</p>
+    <p style="background-color: rgb(85, 170, 226); grid-column-start: 3; grid-column-end: 5">Third</p>
+    <p style="background-color: rgb(255, 128, 168); grid-row-start: 2; grid-row-end: 4 ">Four</p>
+    <p style="background-color: rgb(101, 227, 43);">Five</p>
+    <p style="background-color: rgb(164, 200, 33);">Six</p>
+    <p style="background-color: rgb(223, 42, 42); grid-row:2/4; grid-column: 4/5">Seven</p>
+    <p style="background-color: rgb(132, 234, 118);">Eight</p>
+    <p style="background-color: rgb(21, 220, 227);">Nine</p>
+</body>
+</html>
