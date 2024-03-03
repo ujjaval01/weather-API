@@ -1,9 +1,10 @@
+
 .content i {
     margin-bottom: 41px;
   }
   
   .container {
-    border-radius: 1px;
+    border-radius: 1.1px;
     padding: 50px 40px 20px 40px;
     box-sizing: border-box;
     font-family: sans-serif;
