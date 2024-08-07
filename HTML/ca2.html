@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Responsive Grid</title>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+    }
+
+    .grid-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-gap: 20px;
+        padding: 20px;
+    }
+    
+    .grid-item {
+        background-color: #f0f0f0;
+        padding: 2px;
+        text-align: center;
+    }
+
+    .sub-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: repeat(2, auto);
+        grid-gap: 5px;
+    }
+
+    .sub-grid-item {
+        background-color: #ccc;
+        padding: 50px;
+        text-align: center;
+    }
+
+    .grid-item-1 {
+        grid-row: span 2;
+        background-color: #ff0000; /* Red */
+        color: white;
+    }
+
+    .grid-item:nth-child(odd) {
+        background-color: #87ceeb; /* Sky Blue */
+    }
+
+    .grid-item:nth-child(even) {
+        background-color: #90ee90; /* Light Green */
+    }
+
+    @media (max-width: 600px) {
+        .grid-container {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="grid-item grid-item-1">
+            <div class="sub-grid">
+                <div class="sub-grid-item">1</div>
+                <div class="sub-grid-item">2</div>
+                <div class="sub-grid-item">3</div>
+                <div class="sub-grid-item">4</div>
+            </div>
+        </div>
+        <div class="grid-item">5</div>
+        <div class="grid-item">6</div>
+        <div class="grid-item">7</div>
+        <div class="grid-item">8</div>
+        <div class="grid-item">9</div>
+    </div>
+</body>
+</html>

@@ -1,45 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Ludo Game</title>
+    <style>
+        /* CSS Styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .board {
+            display: grid;
+            grid-template-columns: repeat(11, 50px);
+            grid-template-rows: repeat(11, 50px);
+            border: 2px solid black;
+            margin-top: 20px;
+        }
+
+        .cell {
+            border: 1px solid black;
+            text-align: center;
+            line-height: 50px;
+        }
+
+        .safe-zone {
+            background-color: lightgrey;
+        }
+
+        .home-base {
+            background-color: yellow;
+        }
+
+        .token {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .token-red {
+            background-color: red;
+        }
+
+        .token-blue {
+            background-color: blue;
+        }
+
+        .token-green {
+            background-color: green;
+        }
+
+        .token-yellow {
+            background-color: yellow;
+        }
+
+        #roll-button {
+            margin-top: 20px;
+        }
+    </style>
 </head>
+
 <body>
-    <h2 align = "center"<b>Table</b></h2>
-    <table border="2"  height = "200" width = "300">
-        <tr>
-            <td></td>
-            <td colspan="5"></td>
-           
-        </tr>
-        <tr>
-            <td colspan="6"></td>
-           
-        </tr>
-        <tr>
-            <td rowspan="4"></td>
-            <td colspan="5"></td>
-           
-        </tr>
-        <tr>
-            <td colspan="2"></td>
-            <td colspan="3"></td>
-           
-        </tr>
-        <tr>
-            <td colspan="2" rowspan="4"></td>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-        </tr>
-        <tr>
-            <td colspan="2"></td>
-            <td colspan="2"></td>
-    
-        </tr>
+    <h1>Ludo Game</h1>
+    <div id="players-info"></div>
+    <button id="roll-button">Roll Die</button>
+    <div id="game-info"></div>
+    <div class="board" id="board"></div>
 
+    <script>
+        // JavaScript code for Ludo Game
 
-    </table>
+        const boardElement = document.getElementById('board');
+        const rollButton = document.getElementById('roll-button');
+        const playersInfoElement = document.getElementById('players-info');
+        const gameInfoElement = document.getElementById('game-info');
 
+        const boardSize = 11;
+        const players = [
+            { name: 'Player 1', color: 'red', position: 0, home: 'home-base' },
+            { name: 'Player 2', color: 'blue', position: 0, home: 'home-base' },
+            { name: 'Player 3', color: 'green', position: 0, home: 'home-base' },
+            { name: 'Player 4', color: 'yellow', position: 0, home: 'home-base' }
+        ];
+
+        let currentPlayerIndex = 0;
+
+        // Create the Ludo board
+        function createBoard() {
+            for (let i = 0; i < boardSize * boardSize; i++) {
+                const cell = document.createElement('div');
+                cell.classList.add('cell');
+                
+                // Add safe zones and home bases
+                if ((i === 0 || i === 10) && i < 5 || i === 5 || (i >= 60 && i <= 64) || (i >= 100 && i <= 104)) {
+                    cell.classList.add('safe-zone');
+                } else if (i === 12 || i === 19 || i === 21 || i === 28 || i === 33 || i === 41 || i === 48 || i === 52 || i === 60 || i === 71 || i === 76 || i === 84 || i === 87 || i === 95 || i === 100) {
+                    cell.classList.add('home-base');
+                }
+
+                boardElement.appendChild(cell);
+            }
+        }
+
+        // Roll die and move player's token
+        function rollDie() {
+            const dieRoll = Math.floor(Math.random() * 6) + 1;
+            const currentPlayer = players[currentPlayerIndex];
+
+            gameInfoElement.textContent = `${currentPlayer.name} rolled a ${dieRoll}`;
+
+            // Move the player's token forward by die roll
+            currentPlayer.position += dieRoll;
+
+            if (currentPlayer.position >= boardSize * boardSize) {
+                gameInfoElement.textContent = `${currentPlayer.name} wins the game!`;
+                rollButton.disabled = true;
+            } else {
+                // Update player info and current player index
+                updatePlayerInfo();
+                currentPlayerIndex = (currentPlayerIndex + 1) % players.length;
+            }
+        }
+
+        // Update player info display
+        function updatePlayerInfo() {
+            playersInfoElement.innerHTML = players.map(player => `
+                <p>${player.name}: Position ${player.position}</p>
+            `).join('');
+        }
+
+        // Initialize game
+        function initGame() {
+            createBoard();
+            updatePlayerInfo();
+
+            rollButton.addEventListener('click', rollDie);
+        }
+
+        // Start the game
+        initGame();
+    </script>
 </body>
+
 </html>
